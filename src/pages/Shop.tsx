@@ -10,6 +10,12 @@ import ProductCard from "@/components/ProductCard";
 import jacket1 from "@/assets/jacket-1.jpg";
 import sweater1 from "@/assets/sweater-1.jpg";
 import boots1 from "@/assets/boots-1.jpg";
+import tshirt1 from "@/assets/tshirt-1.jpg";
+import jeans1 from "@/assets/jeans-1.jpg";
+import dress1 from "@/assets/dress-1.jpg";
+import bag1 from "@/assets/bag-1.jpg";
+import stripedShirt1 from "@/assets/striped-shirt-1.jpg";
+import blazer1 from "@/assets/blazer-1.jpg";
 
 const Shop = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,79 +26,139 @@ const Shop = () => {
     {
       id: "1",
       image: jacket1,
-      title: "Vintage Denim Jacket",
-      price: 45,
-      originalPrice: 89,
+      title: "Chaqueta de Mezclilla Vintage",
+      price: 180000,
+      originalPrice: 356000,
       size: "M",
-      condition: "Excellent",
+      condition: "Excelente",
       brand: "Levi's",
     },
     {
       id: "2",
       image: sweater1,
-      title: "Cozy Knit Sweater",
-      price: 32,
-      originalPrice: 65,
+      title: "Suéter Tejido Acogedora",
+      price: 128000,
+      originalPrice: 260000,
       size: "L",
-      condition: "Good",
+      condition: "Bueno",
       brand: "Zara",
     },
     {
       id: "3",
       image: boots1,
-      title: "Leather Ankle Boots",
-      price: 75,
-      originalPrice: 150,
-      size: "8",
-      condition: "Like New",
+      title: "Botas de Cuero Hasta el Tobillo",
+      price: 300000,
+      originalPrice: 600000,
+      size: "38",
+      condition: "Como Nuevo",
       brand: "Dr. Martens",
     },
     {
       id: "4",
-      image: jacket1,
-      title: "Classic Bomber Jacket",
-      price: 55,
-      originalPrice: 120,
-      size: "L",
-      condition: "Good",
-      brand: "Nike",
+      image: tshirt1,
+      title: "Camiseta Básica de Algodón",
+      price: 45000,
+      originalPrice: 80000,
+      size: "S",
+      condition: "Excelente",
+      brand: "H&M",
     },
     {
       id: "5",
-      image: sweater1,
-      title: "Cashmere Blend Sweater",
-      price: 68,
-      originalPrice: 140,
-      size: "M",
-      condition: "Excellent",
-      brand: "J.Crew",
+      image: jeans1,
+      title: "Jeans Skinny Azul Oscuro",
+      price: 95000,
+      originalPrice: 180000,
+      size: "30",
+      condition: "Bueno",
+      brand: "Pull & Bear",
     },
     {
       id: "6",
+      image: dress1,
+      title: "Vestido Floral Midi",
+      price: 150000,
+      originalPrice: 280000,
+      size: "M",
+      condition: "Excelente",
+      brand: "Mango",
+    },
+    {
+      id: "7",
+      image: bag1,
+      title: "Bolso de Cuero Negro",
+      price: 220000,
+      originalPrice: 400000,
+      size: "Único",
+      condition: "Bueno",
+      brand: "Michael Kors",
+    },
+    {
+      id: "8",
+      image: stripedShirt1,
+      title: "Camisa Rayas Manga Larga",
+      price: 75000,
+      originalPrice: 140000,
+      size: "M",
+      condition: "Excelente",
+      brand: "Tommy Hilfiger",
+    },
+    {
+      id: "9",
+      image: blazer1,
+      title: "Blazer Negro Profesional",
+      price: 190000,
+      originalPrice: 350000,
+      size: "L",
+      condition: "Como Nuevo",
+      brand: "Hugo Boss",
+    },
+    {
+      id: "10",
+      image: jacket1,
+      title: "Chaqueta Bomber Clásica",
+      price: 165000,
+      originalPrice: 280000,
+      size: "L",
+      condition: "Bueno",
+      brand: "Nike",
+    },
+    {
+      id: "11",
+      image: sweater1,
+      title: "Suéter Mezcla de Cachemira",
+      price: 205000,
+      originalPrice: 420000,
+      size: "M",
+      condition: "Excelente",
+      brand: "J.Crew",
+    },
+    {
+      id: "12",
       image: boots1,
-      title: "Combat Boots",
-      price: 45,
-      originalPrice: 95,
-      size: "9",
-      condition: "Good",
+      title: "Botas de Combate",
+      price: 135000,
+      originalPrice: 285000,
+      size: "40",
+      condition: "Bueno",
       brand: "Timberland",
     },
   ];
 
   const categories = [
-    { value: "all", label: "All Items" },
-    { value: "tops", label: "Tops" },
-    { value: "bottoms", label: "Bottoms" },
-    { value: "outerwear", label: "Outerwear" },
-    { value: "shoes", label: "Shoes" },
-    { value: "accessories", label: "Accessories" },
+    { value: "all", label: "Todos los Artículos" },
+    { value: "tops", label: "Blusas y Camisas" },
+    { value: "bottoms", label: "Pantalones" },
+    { value: "outerwear", label: "Chaquetas" },
+    { value: "shoes", label: "Zapatos" },
+    { value: "accessories", label: "Accesorios" },
   ];
 
   const sortOptions = [
-    { value: "newest", label: "Newest First" },
-    { value: "price-low", label: "Price: Low to High" },
-    { value: "price-high", label: "Price: High to Low" },
-    { value: "popular", label: "Most Popular" },
+    { value: "newest", label: "Más Recientes" },
+    { value: "price-low", label: "Precio: Menor a Mayor" },
+    { value: "price-high", label: "Precio: Mayor a Menor" },
+    { value: "popular", label: "Más Populares" },
   ];
 
   return (
@@ -102,8 +168,8 @@ const Shop = () => {
       <div className="container py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Shop All Items</h1>
-          <p className="text-muted-foreground">Discover unique pieces from our curated collection</p>
+          <h1 className="text-3xl font-bold mb-2">Tienda - Todos los Artículos</h1>
+          <p className="text-muted-foreground">Descubre piezas únicas de nuestra colección curada</p>
         </div>
 
         {/* Filters */}
@@ -112,7 +178,7 @@ const Shop = () => {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search for items, brands, or styles..."
+              placeholder="Buscar artículos, marcas o estilos..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -150,7 +216,7 @@ const Shop = () => {
           {/* Filter Button */}
           <Button variant="outline" className="gap-2">
             <SlidersHorizontal className="h-4 w-4" />
-            Filters
+            Filtros
           </Button>
         </div>
 
@@ -163,7 +229,7 @@ const Shop = () => {
           )}
           {searchQuery && (
             <Badge variant="secondary" className="gap-2">
-              Search: "{searchQuery}"
+              Búsqueda: "{searchQuery}"
             </Badge>
           )}
         </div>
@@ -171,7 +237,7 @@ const Shop = () => {
         {/* Results Count */}
         <div className="flex justify-between items-center mb-6">
           <p className="text-muted-foreground">
-            Showing {products.length} results
+            Mostrando {products.length} resultados
           </p>
         </div>
 
@@ -190,7 +256,7 @@ const Shop = () => {
         {/* Load More */}
         <div className="flex justify-center mt-12">
           <Button variant="outline" size="lg">
-            Load More Items
+            Cargar Más Artículos
           </Button>
         </div>
       </div>

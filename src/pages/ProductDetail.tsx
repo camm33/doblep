@@ -14,12 +14,12 @@ const ProductDetail = () => {
 
   const product = {
     id: "1",
-    title: "Vintage Denim Jacket",
+    title: "Chaqueta de Mezclilla Vintage",
     brand: "Levi's",
-    price: 45,
-    originalPrice: 89,
-    condition: "Excellent",
-    description: "A classic vintage Levi's denim jacket in excellent condition. This timeless piece features the iconic trucker jacket design with button closure, chest pockets, and a comfortable fit. Perfect for layering and adding a vintage touch to any outfit.",
+    price: 180000,
+    originalPrice: 356000,
+    condition: "Excelente",
+    description: "Una chaqueta de mezclilla vintage clásica de Levi's en excelente estado. Esta pieza atemporal presenta el icónico diseño de chaqueta trucker con cierre de botones, bolsillos en el pecho y un ajuste cómodo. Perfecta para usar en capas y agregar un toque vintage a cualquier outfit.",
     images: [jacket1, jacket1, jacket1],
     sizes: ["S", "M", "L", "XL"],
     seller: {
@@ -28,11 +28,11 @@ const ProductDetail = () => {
       reviews: 127,
     },
     details: {
-      Material: "100% Cotton Denim",
-      Color: "Classic Blue",
-      Condition: "Excellent - No visible wear",
-      "Original Purchase": "2019",
-      "Care Instructions": "Machine wash cold, hang dry",
+      Material: "100% Mezclilla de Algodón",
+      Color: "Azul Clásico",
+      Condición: "Excelente - Sin desgaste visible",
+      "Compra Original": "2019",
+      "Instrucciones de Cuidado": "Lavar en frío, secar colgando",
     },
   };
 
@@ -44,7 +44,7 @@ const ProductDetail = () => {
         {/* Back Button */}
         <Button variant="ghost" className="mb-6 gap-2">
           <ArrowLeft className="h-4 w-4" />
-          Back to Shop
+          Volver a la Tienda
         </Button>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -94,10 +94,10 @@ const ProductDetail = () => {
               
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-3xl font-bold text-[hsl(var(--price-highlight))]">
-                  ${product.price}
+                  ${product.price.toLocaleString('es-CO')} COP
                 </span>
                 <span className="text-xl text-muted-foreground line-through">
-                  ${product.originalPrice}
+                  ${product.originalPrice.toLocaleString('es-CO')} COP
                 </span>
                 <Badge variant="outline" className="bg-success/10 text-success border-success">
                   {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% off
@@ -107,7 +107,7 @@ const ProductDetail = () => {
 
             {/* Size Selection */}
             <div>
-              <h3 className="font-semibold mb-3">Size</h3>
+              <h3 className="font-semibold mb-3">Talla</h3>
               <div className="flex gap-2">
                 {product.sizes.map((size) => (
                   <Button
@@ -126,16 +126,16 @@ const ProductDetail = () => {
             <div className="flex gap-4">
               <Button size="lg" className="flex-1 gap-2">
                 <ShoppingBag className="h-4 w-4" />
-                Add to Cart
+                Agregar al Carrito
               </Button>
               <Button size="lg" variant="outline">
-                Buy Now
+                Comprar Ahora
               </Button>
             </div>
 
             {/* Description */}
             <div>
-              <h3 className="font-semibold mb-3">Description</h3>
+              <h3 className="font-semibold mb-3">Descripción</h3>
               <p className="text-muted-foreground leading-relaxed">{product.description}</p>
             </div>
 
@@ -143,18 +143,18 @@ const ProductDetail = () => {
             <Card className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-semibold">Sold by {product.seller.name}</p>
+                  <p className="font-semibold">Vendido por {product.seller.name}</p>
                   <p className="text-sm text-muted-foreground">
-                    {product.seller.rating} ★ ({product.seller.reviews} reviews)
+                    {product.seller.rating} ★ ({product.seller.reviews} reseñas)
                   </p>
                 </div>
-                <Button variant="outline">View Profile</Button>
+                <Button variant="outline">Ver Perfil</Button>
               </div>
             </Card>
 
             {/* Product Details */}
             <div>
-              <h3 className="font-semibold mb-3">Product Details</h3>
+              <h3 className="font-semibold mb-3">Detalles del Producto</h3>
               <div className="space-y-2">
                 {Object.entries(product.details).map(([key, value]) => (
                   <div key={key} className="flex justify-between py-2">

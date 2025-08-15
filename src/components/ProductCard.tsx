@@ -68,16 +68,16 @@ const ProductCard = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="font-bold text-lg text-[hsl(var(--price-highlight))]">
-              ${price}
+              ${price.toLocaleString('es-CO')} COP
             </span>
             {originalPrice && (
               <span className="text-sm text-muted-foreground line-through">
-                ${originalPrice}
+                ${originalPrice.toLocaleString('es-CO')} COP
               </span>
             )}
           </div>
           <Badge variant="outline" className="text-xs">
-            Size {size}
+            Talla {size}
           </Badge>
         </div>
       </div>

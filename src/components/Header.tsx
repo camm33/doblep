@@ -13,21 +13,21 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">T</span>
+            <span className="text-primary-foreground font-bold text-sm">V</span>
           </div>
-          <span className="font-bold text-xl">Thrift</span>
+          <span className="font-bold text-xl">Vintage</span>
         </div>
 
         {/* Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
           <a href="/" className="text-foreground hover:text-primary transition-colors">
-            Shop
+            Tienda
           </a>
           <a href="/sell" className="text-foreground hover:text-primary transition-colors">
-            Sell
+            Vender
           </a>
           <a href="/about" className="text-foreground hover:text-primary transition-colors">
-            About
+            Nosotros
           </a>
         </nav>
 
@@ -35,7 +35,7 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
         <div className="flex items-center space-x-4">
           <Button variant="outline" size="sm" className="gap-2">
             <Plus className="h-4 w-4" />
-            <span className="hidden sm:inline">Sell Item</span>
+            <span className="hidden sm:inline">Vender Artículo</span>
           </Button>
           
           <Button variant="ghost" size="sm" className="relative">

@@ -16,26 +16,26 @@ const Hero = () => {
           <div className="max-w-2xl text-primary-foreground">
             <div className="flex items-center gap-2 mb-4">
               <Sparkles className="h-5 w-5" />
-              <span className="text-sm font-medium">Sustainable Fashion</span>
+              <span className="text-sm font-medium">Moda Sostenible</span>
             </div>
             
             <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Your Style,
+              Tu Estilo,
               <br />
-              <span className="text-accent">Reimagined</span>
+              <span className="text-accent">Reinventado</span>
             </h1>
             
             <p className="text-xl mb-8 text-primary-foreground/90 max-w-lg">
-              Discover unique pieces, sell what you love, and join the sustainable fashion revolution.
+              Descubre piezas únicas, vende lo que amas y únete a la revolución de la moda sostenible.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" variant="secondary" className="group">
-                Shop Now
+                Comprar Ahora
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                Start Selling
+                Comenzar a Vender
               </Button>
             </div>
           </div>
