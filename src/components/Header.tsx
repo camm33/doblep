@@ -1,12 +1,33 @@
-import { ShoppingBag, User, Plus } from "lucide-react";
+import { ShoppingBag, User, Plus, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 interface HeaderProps {
   cartItemCount?: number;
 }
 
 const Header = ({ cartItemCount = 0 }: HeaderProps) => {
+  const { user, logout, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    toast.success('Sesión cerrada exitosamente');
+    navigate('/login');
+  };
+
+  const handleUserClick = () => {
+    if (isAuthenticated) {
+      // Mostrar perfil o menú de usuario
+      return;
+    } else {
+      navigate('/login');
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
       <div className="container flex h-16 items-center justify-between">
@@ -50,9 +71,35 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
             )}
           </Button>
           
-          <Button variant="ghost" size="sm">
-            <User className="h-5 w-5" />
-          </Button>
+          {isAuthenticated ? (
+            <>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={handleUserClick}
+                title={`Hola, ${user?.username}`}
+              >
+                <User className="h-5 w-5" />
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={handleLogout}
+                title="Cerrar sesión"
+              >
+                <LogOut className="h-5 w-5" />
+              </Button>
+            </>
+          ) : (
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={handleUserClick}
+              title="Iniciar sesión"
+            >
+              <User className="h-5 w-5" />
+            </Button>
+          )}
         </div>
       </div>
     </header>
