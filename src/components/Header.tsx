@@ -34,9 +34,9 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">V</span>
+            <span className="text-primary-foreground font-bold text-sm">P</span>
           </div>
-          <span className="font-bold text-xl">Vintage</span>
+          <span className="font-bold text-xl">Pipi</span>
         </div>
 
         {/* Navigation */}

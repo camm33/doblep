@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'sonner';
+import Header from '@/components/Header';
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -101,14 +102,16 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <div className="w-full max-w-md">
-        <div className="bg-card rounded-lg shadow-lg p-8 border border-border">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-foreground mb-2">Crear Cuenta</h1>
-            <p className="text-muted-foreground">Únete a la comunidad de Vintage</p>
-          </div>
+    <div className="min-h-screen bg-background">
+      <Header />
+      <div className="flex items-center justify-center px-4 py-16">
+        <div className="w-full max-w-md">
+          <div className="bg-card rounded-lg shadow-lg p-8 border border-border">
+            {/* Header */}
+            <div className="text-center mb-8">
+              <h1 className="text-2xl font-bold text-foreground mb-2">Crear Cuenta</h1>
+              <p className="text-muted-foreground">Únete a la comunidad de Pipi</p>
+            </div>
 
           {/* Formulario */}
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -203,6 +206,7 @@ const RegisterForm = () => {
               </Link>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
