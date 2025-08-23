@@ -12,15 +12,17 @@ const RegisterForm = () => {
     email: '',
     username: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    birthDate: ''
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showAdditionalFields, setShowAdditionalFields] = useState(false);
   
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  const validateForm = () => {
+  const validateBasicForm = () => {
     const newErrors: { [key: string]: string } = {};
 
     // Validar email
@@ -49,11 +51,23 @@ const RegisterForm = () => {
       newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
     }
 
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const validateFullForm = () => {
+    const newErrors: { [key: string]: string } = {};
+
     // Validar confirmación de contraseña
     if (!formData.confirmPassword) {
       newErrors.confirmPassword = 'Confirma tu contraseña';
     } else if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Las contraseñas no coinciden';
+    }
+
+    // Validar fecha de nacimiento
+    if (!formData.birthDate) {
+      newErrors.birthDate = 'La fecha de nacimiento es requerida';
     }
 
     setErrors(newErrors);
@@ -63,7 +77,17 @@ const RegisterForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!validateForm()) {
+    if (!showAdditionalFields) {
+      // Primera vez: validar campos básicos y mostrar campos adicionales
+      if (!validateBasicForm()) {
+        return;
+      }
+      setShowAdditionalFields(true);
+      return;
+    }
+
+    // Segunda vez: validar todos los campos y registrar
+    if (!validateFullForm()) {
       return;
     }
 
@@ -183,23 +207,44 @@ const RegisterForm = () => {
               )}
             </div>
 
-            {/* Campo Fecha de Nacimiento */}
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="text-sm font-medium">INTRODUCE TU FECHA DE NACIMIENTO</Label>
-              <Input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="date"
-                value={formData.confirmPassword}
-                onChange={handleInputChange}
-                placeholder="Fecha de nacimiento"
-                className={`rounded-full h-12 px-6 ${errors.confirmPassword ? 'border-destructive' : 'border-muted bg-muted/50'}`}
-                autoComplete="new-password"
-              />
-              {errors.confirmPassword && (
-                <p className="text-sm text-destructive">{errors.confirmPassword}</p>
-              )}
-            </div>
+            {/* Campos adicionales que aparecen después del primer clic */}
+            {showAdditionalFields && (
+              <>
+                {/* Campo Confirmar Contraseña */}
+                <div className="space-y-2">
+                  <Label htmlFor="confirmPassword" className="text-sm font-medium">CONFIRMA TU CONTRASEÑA</Label>
+                  <Input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    placeholder="••••••••"
+                    className={`rounded-full h-12 px-6 ${errors.confirmPassword ? 'border-destructive' : 'border-muted bg-muted/50'}`}
+                    autoComplete="new-password"
+                  />
+                  {errors.confirmPassword && (
+                    <p className="text-sm text-destructive">{errors.confirmPassword}</p>
+                  )}
+                </div>
+
+                {/* Campo Fecha de Nacimiento */}
+                <div className="space-y-2">
+                  <Label htmlFor="birthDate" className="text-sm font-medium">INTRODUCE TU FECHA DE NACIMIENTO</Label>
+                  <Input
+                    id="birthDate"
+                    name="birthDate"
+                    type="date"
+                    value={formData.birthDate}
+                    onChange={handleInputChange}
+                    className={`rounded-full h-12 px-6 ${errors.birthDate ? 'border-destructive' : 'border-muted bg-muted/50'}`}
+                  />
+                  {errors.birthDate && (
+                    <p className="text-sm text-destructive">{errors.birthDate}</p>
+                  )}
+                </div>
+              </>
+            )}
 
             {/* Botón de Submit */}
             <Button 
