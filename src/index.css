@@ -8,43 +8,43 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 38 25% 88%;
+    --foreground: 14 23% 18%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 38 25% 90%;
+    --card-foreground: 14 23% 18%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 38 25% 90%;
+    --popover-foreground: 14 23% 18%;
 
-    --primary: 222.2 84% 4.9%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 14 23% 18%;
+    --primary-foreground: 38 25% 88%;
 
-    --secondary: 30 20% 95%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 38 31% 63%;
+    --secondary-foreground: 14 23% 18%;
 
-    --muted: 30 20% 95%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 38 31% 63%;
+    --muted-foreground: 14 23% 35%;
 
-    --accent: 33 100% 85%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 38 31% 63%;
+    --accent-foreground: 14 23% 18%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 38 25% 88%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 222.2 84% 4.9%;
+    --border: 38 31% 75%;
+    --input: 38 25% 90%;
+    --ring: 14 23% 18%;
 
     /* Fashion marketplace specific tokens */
-    --hero-bg: linear-gradient(135deg, 222.2 84% 4.9%, 222.2 47.4% 11.2%);
-    --product-card: 0 0% 100%;
-    --product-card-hover: 30 20% 98%;
-    --price-highlight: 33 100% 50%;
+    --hero-bg: 38 25% 85%;
+    --product-card: 38 25% 90%;
+    --product-card-hover: 38 25% 85%;
+    --price-highlight: 14 23% 18%;
     --success: 142 76% 36%;
     --success-foreground: 355.7 100% 97.3%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -64,39 +64,39 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 14 23% 12%;
+    --foreground: 38 25% 88%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 14 23% 15%;
+    --card-foreground: 38 25% 88%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 14 23% 15%;
+    --popover-foreground: 38 25% 88%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 38 31% 63%;
+    --primary-foreground: 14 23% 12%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 14 23% 20%;
+    --secondary-foreground: 38 25% 88%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 14 23% 20%;
+    --muted-foreground: 38 15% 65%;
 
-    --accent: 33 100% 70%;
-    --accent-foreground: 222.2 84% 4.9%;
+    --accent: 14 23% 20%;
+    --accent-foreground: 38 25% 88%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 38 25% 88%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 14 23% 20%;
+    --input: 14 23% 15%;
+    --ring: 38 31% 63%;
 
     /* Dark mode fashion tokens */
-    --hero-bg: linear-gradient(135deg, 222.2 84% 4.9%, 217.2 32.6% 17.5%);
-    --product-card: 217.2 32.6% 17.5%;
-    --product-card-hover: 217.2 32.6% 20%;
-    --price-highlight: 33 100% 65%;
+    --hero-bg: 14 23% 10%;
+    --product-card: 14 23% 15%;
+    --product-card-hover: 14 23% 18%;
+    --price-highlight: 38 31% 63%;
     --success: 142 76% 36%;
     --success-foreground: 355.7 100% 97.3%;
     --sidebar-background: 240 5.9% 10%;

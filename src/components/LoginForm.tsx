@@ -87,30 +87,45 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <div className="flex items-center justify-center px-4 py-16">
+    <div className="min-h-screen bg-gradient-to-b from-primary to-background">
+      {/* Logo */}
+      <div className="absolute top-6 left-6">
+        <div className="flex items-center space-x-2">
+          <div className="h-8 w-8 rounded bg-secondary flex items-center justify-center">
+            <span className="text-secondary-foreground font-bold text-sm">P</span>
+          </div>
+          <span className="font-bold text-xl text-secondary">Pipi</span>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-center min-h-screen px-4">
         <div className="w-full max-w-md">
-          <div className="bg-card rounded-lg shadow-lg p-8 border border-border">
+          <div className="bg-card rounded-2xl shadow-2xl p-8 border border-border/50 backdrop-blur-sm">
             {/* Header */}
             <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold text-foreground mb-2">Iniciar Sesión</h1>
-              <p className="text-muted-foreground">Ingresa a tu cuenta de Pipi</p>
+              <h1 className="text-3xl font-bold text-foreground mb-2">LOGIN</h1>
+              <p className="text-muted-foreground">Ingresa a tu cuenta</p>
+              <p className="text-sm text-muted-foreground mt-2">
+                ¿No tienes cuenta?{' '}
+                <Link to="/register" className="text-primary hover:underline font-medium">
+                  Regístrate
+                </Link>
+              </p>
             </div>
 
           {/* Formulario */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Campo Email/Usuario */}
             <div className="space-y-2">
-              <Label htmlFor="email">Correo electrónico o nombre de usuario</Label>
+              <Label htmlFor="email" className="text-sm font-medium">INGRESA TU CORREO ELECTRÓNICO</Label>
               <Input
                 id="email"
                 name="email"
                 type="text"
                 value={formData.email}
                 onChange={handleInputChange}
-                placeholder="ejemplo@correo.com o usuario123"
-                className={errors.email ? 'border-destructive' : ''}
+                placeholder="ejemplo@correo.com"
+                className={`rounded-full h-12 px-6 ${errors.email ? 'border-destructive' : 'border-muted bg-muted/50'}`}
                 autoComplete="username"
               />
               {errors.email && (
@@ -120,7 +135,7 @@ const LoginForm = () => {
 
             {/* Campo Contraseña */}
             <div className="space-y-2">
-              <Label htmlFor="password">Contraseña</Label>
+              <Label htmlFor="password" className="text-sm font-medium">INTRODUCE TU CONTRASEÑA</Label>
               <Input
                 id="password"
                 name="password"
@@ -128,7 +143,7 @@ const LoginForm = () => {
                 value={formData.password}
                 onChange={handleInputChange}
                 placeholder="••••••••"
-                className={errors.password ? 'border-destructive' : ''}
+                className={`rounded-full h-12 px-6 ${errors.password ? 'border-destructive' : 'border-muted bg-muted/50'}`}
                 autoComplete="current-password"
               />
               {errors.password && (
@@ -153,28 +168,21 @@ const LoginForm = () => {
             {/* Botón de Submit */}
             <Button 
               type="submit" 
-              className="w-full"
+              className="w-full rounded-full h-12 text-base font-medium"
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Iniciando sesión...' : 'Iniciar Sesión'}
+              {isSubmitting ? 'Iniciando sesión...' : 'Iniciar'}
             </Button>
           </form>
 
           {/* Enlaces adicionales */}
-          <div className="mt-6 space-y-4 text-center">
+          <div className="mt-6 text-center">
             <Link 
               to="/forgot-password" 
-              className="text-sm text-primary hover:underline block"
+              className="text-sm text-primary hover:underline"
             >
               ¿Olvidaste tu contraseña?
             </Link>
-            
-            <div className="text-sm text-muted-foreground">
-              ¿No tienes cuenta?{' '}
-              <Link to="/register" className="text-primary hover:underline">
-                Regístrate aquí
-              </Link>
-            </div>
           </div>
         </div>
         </div>

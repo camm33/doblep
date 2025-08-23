@@ -102,48 +102,45 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <div className="flex items-center justify-center px-4 py-16">
+    <div className="min-h-screen bg-gradient-to-b from-primary to-background">
+      {/* Logo */}
+      <div className="absolute top-6 left-6">
+        <div className="flex items-center space-x-2">
+          <div className="h-8 w-8 rounded bg-secondary flex items-center justify-center">
+            <span className="text-secondary-foreground font-bold text-sm">P</span>
+          </div>
+          <span className="font-bold text-xl text-secondary">Pipi</span>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-center min-h-screen px-4">
         <div className="w-full max-w-md">
-          <div className="bg-card rounded-lg shadow-lg p-8 border border-border">
+          <div className="bg-card rounded-2xl shadow-2xl p-8 border border-border/50 backdrop-blur-sm">
             {/* Header */}
             <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold text-foreground mb-2">Crear Cuenta</h1>
-              <p className="text-muted-foreground">Únete a la comunidad de Pipi</p>
+              <h1 className="text-3xl font-bold text-foreground mb-2">REGISTER</h1>
+              <p className="text-base text-foreground mb-4">Crea una cuenta nueva</p>
+              <p className="text-sm text-muted-foreground">
+                ¿Ya te has registrado?{' '}
+                <Link to="/login" className="text-primary hover:underline font-medium">
+                  Ingresar
+                </Link>
+              </p>
             </div>
 
           {/* Formulario */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Campo Email */}
             <div className="space-y-2">
-              <Label htmlFor="email">Correo electrónico</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="ejemplo@correo.com"
-                className={errors.email ? 'border-destructive' : ''}
-                autoComplete="email"
-              />
-              {errors.email && (
-                <p className="text-sm text-destructive">{errors.email}</p>
-              )}
-            </div>
-
-            {/* Campo Username */}
-            <div className="space-y-2">
-              <Label htmlFor="username">Nombre de usuario</Label>
+              <Label htmlFor="username" className="text-sm font-medium">INTRODUCE TU NOMBRE</Label>
               <Input
                 id="username"
                 name="username"
                 type="text"
                 value={formData.username}
                 onChange={handleInputChange}
-                placeholder="usuario123"
-                className={errors.username ? 'border-destructive' : ''}
+                placeholder="Usuario123"
+                className={`rounded-full h-12 px-6 ${errors.username ? 'border-destructive' : 'border-muted bg-muted/50'}`}
                 autoComplete="username"
               />
               {errors.username && (
@@ -151,9 +148,26 @@ const RegisterForm = () => {
               )}
             </div>
 
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-sm font-medium">INGRESA TU CORREO ELECTRÓNICO</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                placeholder="ejemplo@correo.com"
+                className={`rounded-full h-12 px-6 ${errors.email ? 'border-destructive' : 'border-muted bg-muted/50'}`}
+                autoComplete="email"
+              />
+              {errors.email && (
+                <p className="text-sm text-destructive">{errors.email}</p>
+              )}
+            </div>
+
             {/* Campo Contraseña */}
             <div className="space-y-2">
-              <Label htmlFor="password">Contraseña</Label>
+              <Label htmlFor="password" className="text-sm font-medium">INTRODUCE TU CONTRASEÑA</Label>
               <Input
                 id="password"
                 name="password"
@@ -161,7 +175,7 @@ const RegisterForm = () => {
                 value={formData.password}
                 onChange={handleInputChange}
                 placeholder="••••••••"
-                className={errors.password ? 'border-destructive' : ''}
+                className={`rounded-full h-12 px-6 ${errors.password ? 'border-destructive' : 'border-muted bg-muted/50'}`}
                 autoComplete="new-password"
               />
               {errors.password && (
@@ -169,17 +183,17 @@ const RegisterForm = () => {
               )}
             </div>
 
-            {/* Campo Confirmar Contraseña */}
+            {/* Campo Fecha de Nacimiento */}
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirmar contraseña</Label>
+              <Label htmlFor="confirmPassword" className="text-sm font-medium">INTRODUCE TU FECHA DE NACIMIENTO</Label>
               <Input
                 id="confirmPassword"
                 name="confirmPassword"
-                type="password"
+                type="date"
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
-                placeholder="••••••••"
-                className={errors.confirmPassword ? 'border-destructive' : ''}
+                placeholder="Fecha de nacimiento"
+                className={`rounded-full h-12 px-6 ${errors.confirmPassword ? 'border-destructive' : 'border-muted bg-muted/50'}`}
                 autoComplete="new-password"
               />
               {errors.confirmPassword && (
@@ -190,22 +204,13 @@ const RegisterForm = () => {
             {/* Botón de Submit */}
             <Button 
               type="submit" 
-              className="w-full"
+              className="w-full rounded-full h-12 text-base font-medium"
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Creando cuenta...' : 'Crear Cuenta'}
+              {isSubmitting ? 'Registrarse...' : 'Registrarse'}
             </Button>
           </form>
 
-          {/* Enlaces adicionales */}
-          <div className="mt-6 text-center">
-            <div className="text-sm text-muted-foreground">
-              ¿Ya tienes cuenta?{' '}
-              <Link to="/login" className="text-primary hover:underline">
-                Inicia sesión aquí
-              </Link>
-            </div>
-          </div>
         </div>
         </div>
       </div>

@@ -1,9 +1,13 @@
-import { ShoppingBag, User, Plus, LogOut } from "lucide-react";
+import { ShoppingBag, User, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { SearchBar } from "@/components/ui/search";
+import { DropdownProfile } from "@/components/ui/dropdown-profile";
+import { ProfileModal } from "@/components/ProfileModal";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { useState } from "react";
 
 interface HeaderProps {
   cartItemCount?: number;
@@ -12,6 +16,7 @@ interface HeaderProps {
 const Header = ({ cartItemCount = 0 }: HeaderProps) => {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -21,11 +26,20 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
 
   const handleUserClick = () => {
     if (isAuthenticated) {
-      // Mostrar perfil o menú de usuario
       return;
     } else {
       navigate('/login');
     }
+  };
+
+  const handleProfileClick = () => {
+    setIsProfileModalOpen(true);
+  };
+
+  const handleSearch = (searchQuery: string) => {
+    console.log('Searching for:', searchQuery);
+    // Aquí implementarías la lógica de búsqueda
+    toast.info(`Buscando: ${searchQuery}`);
   };
 
   return (
@@ -39,18 +53,24 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
           <span className="font-bold text-xl">Pipi</span>
         </div>
 
-        {/* Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
-          <a href="/" className="text-foreground hover:text-primary transition-colors">
-            Tienda
-          </a>
-          <a href="/sell" className="text-foreground hover:text-primary transition-colors">
-            Vender
-          </a>
-          <a href="/about" className="text-foreground hover:text-primary transition-colors">
-            Nosotros
-          </a>
-        </nav>
+        {/* Search Bar (only when authenticated) */}
+        {isAuthenticated ? (
+          <div className="flex-1 max-w-md mx-8">
+            <SearchBar onSearch={handleSearch} />
+          </div>
+        ) : (
+          <nav className="hidden md:flex items-center space-x-8">
+            <a href="/" className="text-foreground hover:text-primary transition-colors">
+              Tienda
+            </a>
+            <a href="/sell" className="text-foreground hover:text-primary transition-colors">
+              Vender
+            </a>
+            <a href="/about" className="text-foreground hover:text-primary transition-colors">
+              Nosotros
+            </a>
+          </nav>
+        )}
 
         {/* Actions */}
         <div className="flex items-center space-x-4">
@@ -71,25 +91,12 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
             )}
           </Button>
           
-          {isAuthenticated ? (
-            <>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={handleUserClick}
-                title={`Hola, ${user?.username}`}
-              >
-                <User className="h-5 w-5" />
-              </Button>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={handleLogout}
-                title="Cerrar sesión"
-              >
-                <LogOut className="h-5 w-5" />
-              </Button>
-            </>
+          {isAuthenticated && user ? (
+            <DropdownProfile 
+              user={user}
+              onLogout={handleLogout}
+              onProfileClick={handleProfileClick}
+            />
           ) : (
             <Button 
               variant="ghost" 
@@ -102,6 +109,12 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
           )}
         </div>
       </div>
+      
+      {/* Profile Modal */}
+      <ProfileModal 
+        isOpen={isProfileModalOpen} 
+        onClose={() => setIsProfileModalOpen(false)} 
+      />
     </header>
   );
 };
