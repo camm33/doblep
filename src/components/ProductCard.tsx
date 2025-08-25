@@ -50,7 +50,7 @@ const ProductCard = ({
             onLike?.(id);
           }}
         >
-          <Heart className={`h-4 w-4 ${isLiked ? 'fill-red-500 text-red-500' : ''}`} />
+          <Heart className={`h-4 w-4 ${isLiked ? 'fill-red-500 text-red-500' : 'hover:text-red-500'}`} />
         </Button>
         {condition !== 'New' && (
           <Badge variant="secondary" className="absolute bottom-2 left-2">

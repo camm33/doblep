@@ -23,13 +23,13 @@ const Hero = () => {
             </div>
             
             <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Tu Estilo,
-              <br />
-              <span className="text-accent">Reinventado</span>
+              <span className="text-accent">DOUBLE π</span>
             </h1>
             
             <p className="text-xl mb-8 text-primary-foreground/90 max-w-lg">
-              Descubre piezas únicas, vende lo que amas y únete a la revolución de la moda sostenible.
+              Sin límites, sin barreras:<br />
+              más tallas, más opciones,<br />
+              más de tí.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">

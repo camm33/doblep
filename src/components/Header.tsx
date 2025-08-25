@@ -90,6 +90,11 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
             <span className="hidden sm:inline">Vender Artículo</span>
           </Button>
           
+          <Button variant="outline" size="sm" className="gap-2">
+            <Plus className="h-4 w-4" />
+            <span className="hidden sm:inline">Intercambiar Artículos</span>
+          </Button>
+          
           <Button variant="ghost" size="sm" className="relative">
             <ShoppingBag className="h-5 w-5" />
             {cartItemCount > 0 && (
