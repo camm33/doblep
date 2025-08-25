@@ -28,12 +28,8 @@ const App = () => (
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             
-            {/* Rutas protegidas */}
-            <Route path="/" element={
-              <ProtectedRoute>
-                <Index />
-              </ProtectedRoute>
-            } />
+            {/* Ruta pública - página principal */}
+            <Route path="/" element={<Index />} />
             <Route path="/shop" element={
               <ProtectedRoute>
                 <Shop />
