@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-fashion.jpg";
 
 const Hero = () => {
+  const navigate = useNavigate();
+  
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70 z-10" />
@@ -30,7 +33,12 @@ const Hero = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" variant="secondary" className="group">
+              <Button 
+                size="lg" 
+                variant="secondary" 
+                className="group"
+                onClick={() => navigate('/shop')}
+              >
                 Comprar Ahora
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>

@@ -5,9 +5,10 @@ import { SearchBar } from "@/components/ui/search";
 import { DropdownProfile } from "@/components/ui/dropdown-profile";
 import { ProfileModal } from "@/components/ProfileModal";
 import { useAuth } from "@/contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "sonner";
 import { useState } from "react";
+import logoImage from "@/assets/logo.png";
 
 interface HeaderProps {
   cartItemCount?: number;
@@ -16,7 +17,11 @@ interface HeaderProps {
 const Header = ({ cartItemCount = 0 }: HeaderProps) => {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  
+  // Solo mostrar barra de búsqueda en el catálogo
+  const showSearchBar = isAuthenticated && location.pathname === '/shop';
 
   const handleLogout = () => {
     logout();
@@ -46,19 +51,23 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
     <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">P</span>
+        <div className="flex items-center space-x-2 cursor-pointer" onClick={() => navigate('/')}>
+          <div className="h-8 w-8 rounded overflow-hidden">
+            <img 
+              src={logoImage} 
+              alt="Pipi Logo" 
+              className="w-full h-full object-cover"
+            />
           </div>
           <span className="font-bold text-xl">Pipi</span>
         </div>
 
-        {/* Search Bar (only when authenticated) */}
-        {isAuthenticated ? (
+        {/* Search Bar (solo en el catálogo) */}
+        {showSearchBar ? (
           <div className="flex-1 max-w-md mx-8">
             <SearchBar onSearch={handleSearch} />
           </div>
-        ) : (
+        ) : !isAuthenticated ? (
           <nav className="hidden md:flex items-center space-x-8">
             <a href="/" className="text-foreground hover:text-primary transition-colors">
               Tienda
@@ -70,6 +79,8 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
               Nosotros
             </a>
           </nav>
+        ) : (
+          <div></div>
         )}
 
         {/* Actions */}

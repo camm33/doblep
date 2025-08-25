@@ -6,41 +6,59 @@
 All colors MUST be HSL.
 */
 
+/* 
+  PALETA DE COLORES - FÁCIL DE CAMBIAR
+  Cambia estos valores para actualizar toda la aplicación:
+  
+  COLORES PRINCIPALES:
+  - Color 1 (Oscuro): #4e2c2e
+  - Color 2 (Medio): #c19b6e  
+  - Color 3 (Claro): #e3d8bd
+*/
+
 @layer base {
   :root {
-    --background: 38 25% 88%;
-    --foreground: 14 23% 18%;
-
-    --card: 38 25% 90%;
-    --card-foreground: 14 23% 18%;
-
-    --popover: 38 25% 90%;
-    --popover-foreground: 14 23% 18%;
-
-    --primary: 14 23% 18%;
-    --primary-foreground: 38 25% 88%;
-
-    --secondary: 38 31% 63%;
-    --secondary-foreground: 14 23% 18%;
-
-    --muted: 38 31% 63%;
-    --muted-foreground: 14 23% 35%;
-
-    --accent: 38 31% 63%;
-    --accent-foreground: 14 23% 18%;
-
+    /* COLORES PRINCIPALES - Cambia estos para actualizar toda la app */
+    --color-dark: 28 20 21;     /* #4e2c2e - Marrón oscuro */
+    --color-medium: 38 31 63;   /* #c19b6e - Dorado/beige */
+    --color-light: 43 25 84;    /* #e3d8bd - Beige claro */
+    --color-white: 60 9 98;     /* Blanco cálido */
+    
+    /* MAPEO AUTOMÁTICO DE COLORES */
+    --primary: var(--color-dark);
+    --primary-foreground: var(--color-light);
+    
+    --secondary: var(--color-medium);
+    --secondary-foreground: var(--color-dark);
+    
+    --accent: var(--color-light);
+    --accent-foreground: var(--color-dark);
+    
+    --background: var(--color-white);
+    --foreground: var(--color-dark);
+    
+    --card: var(--color-white);
+    --card-foreground: var(--color-dark);
+    
+    --popover: var(--color-white);
+    --popover-foreground: var(--color-dark);
+    
+    --muted: var(--color-light);
+    --muted-foreground: var(--color-dark);
+    
+    --border: var(--color-medium);
+    --input: var(--color-light);
+    --ring: var(--color-medium);
+    
+    /* Estados (generalmente no necesitan cambios) */
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 38 25% 88%;
-
-    --border: 38 31% 75%;
-    --input: 38 25% 90%;
-    --ring: 14 23% 18%;
-
+    --destructive-foreground: var(--color-white);
+    
     /* Fashion marketplace specific tokens */
-    --hero-bg: 38 25% 85%;
-    --product-card: 38 25% 90%;
-    --product-card-hover: 38 25% 85%;
-    --price-highlight: 14 23% 18%;
+    --hero-bg: var(--color-light);
+    --product-card: var(--color-white);
+    --product-card-hover: var(--color-light);
+    --price-highlight: var(--color-dark);
     --success: 142 76% 36%;
     --success-foreground: 355.7 100% 97.3%;
 

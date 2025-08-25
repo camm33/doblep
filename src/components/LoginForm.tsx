@@ -6,7 +6,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'sonner';
-import Header from '@/components/Header';
+import logoImage from "@/assets/logo.png";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -91,8 +91,12 @@ const LoginForm = () => {
       {/* Logo */}
       <div className="absolute top-6 left-6">
         <div className="flex items-center space-x-2">
-          <div className="h-8 w-8 rounded bg-secondary flex items-center justify-center">
-            <span className="text-secondary-foreground font-bold text-sm">P</span>
+          <div className="h-8 w-8 rounded overflow-hidden bg-secondary/20">
+            <img 
+              src={logoImage} 
+              alt="Pipi Logo" 
+              className="w-full h-full object-cover"
+            />
           </div>
           <span className="font-bold text-xl text-secondary">Pipi</span>
         </div>
