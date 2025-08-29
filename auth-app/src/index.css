@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+/* 
+  PALETA DE COLORES - FÁCIL DE CAMBIAR
+  Cambia estos valores para actualizar toda la aplicación:
+  
+  COLORES PRINCIPALES:
+  - Color 1 (Oscuro): #4e2c2e
+  - Color 2 (Medio): #c19b6e  
+  - Color 3 (Claro): #e3d8bd
+*/
+
+@layer base {
+  :root {
+    /* COLORES PRINCIPALES - Cambia estos para actualizar toda la app */
+    --color-dark: 28 20 21;     /* #4e2c2e - Marrón oscuro */
+    --color-medium: 38 31 63;   /* #c19b6e - Dorado/beige */
+    --color-light: 43 25 84;    /* #e3d8bd - Beige claro */
+    --color-white: 60 9 98;     /* Blanco cálido */
+    
+    /* MAPEO AUTOMÁTICO DE COLORES */
+    --primary: var(--color-dark);
+    --primary-foreground: var(--color-light);
+    
+    --secondary: var(--color-medium);
+    --secondary-foreground: var(--color-dark);
+    
+    --accent: var(--color-light);
+    --accent-foreground: var(--color-dark);
+    
+    --background: var(--color-white);
+    --foreground: var(--color-dark);
+    
+    --card: var(--color-white);
+    --card-foreground: var(--color-dark);
+    
+    --popover: var(--color-white);
+    --popover-foreground: var(--color-dark);
+    
+    --muted: var(--color-light);
+    --muted-foreground: var(--color-dark);
+    
+    --border: var(--color-medium);
+    --input: var(--color-light);
+    --ring: var(--color-medium);
+    
+    /* Estados (generalmente no necesitan cambios) */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: var(--color-white);
+    
+    /* Fashion marketplace specific tokens */
+    --hero-bg: var(--color-light);
+    --product-card: var(--color-white);
+    --product-card-hover: var(--color-light);
+    --price-highlight: var(--color-dark);
+    --success: 142 76% 36%;
+    --success-foreground: 355.7 100% 97.3%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 14 23% 12%;
+    --foreground: 38 25% 88%;
+
+    --card: 14 23% 15%;
+    --card-foreground: 38 25% 88%;
+
+    --popover: 14 23% 15%;
+    --popover-foreground: 38 25% 88%;
+
+    --primary: 38 31% 63%;
+    --primary-foreground: 14 23% 12%;
+
+    --secondary: 14 23% 20%;
+    --secondary-foreground: 38 25% 88%;
+
+    --muted: 14 23% 20%;
+    --muted-foreground: 38 15% 65%;
+
+    --accent: 14 23% 20%;
+    --accent-foreground: 38 25% 88%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 38 25% 88%;
+
+    --border: 14 23% 20%;
+    --input: 14 23% 15%;
+    --ring: 38 31% 63%;
+
+    /* Dark mode fashion tokens */
+    --hero-bg: 14 23% 10%;
+    --product-card: 14 23% 15%;
+    --product-card-hover: 14 23% 18%;
+    --price-highlight: 38 31% 63%;
+    --success: 142 76% 36%;
+    --success-foreground: 355.7 100% 97.3%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

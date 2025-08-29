@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { useAuth } from '../contexts/AuthContext';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
 import { toast } from 'sonner';
-import logoImage from '@/assets/logo.png';
+import logoImage from '../assets/logo.png';
 
 const RegisterForm: React.FC = () => {
   const navigate = useNavigate();

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { useAuth } from '../contexts/AuthContext';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
 import { toast } from 'sonner';
-import logoImage from '@/assets/logo.png';
+import logoImage from '../assets/logo.png';
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
@@ -21,7 +21,6 @@ const LoginForm: React.FC = () => {
       ...prev,
       [name]: value
     }));
-    // Limpiar error del campo cuando el usuario empiece a escribir
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -55,8 +54,9 @@ const LoginForm: React.FC = () => {
     const success = await login(formData.username, formData.password);
     
     if (success) {
-      toast.success('¡Bienvenido!');
-      navigate('/');
+      toast.success('¡Bienvenido! Redirigiendo a la aplicación principal...');
+      // En la aplicación separada, podrías redirigir a la otra aplicación
+      window.location.href = '/'; // O la URL de tu aplicación principal
     } else {
       toast.error('Credenciales inválidas');
     }
