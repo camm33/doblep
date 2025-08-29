@@ -1,44 +1,44 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
-import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'sonner';
-import logoImage from "@/assets/logo.png";
+import logoImage from '@/assets/logo.png';
 
-const LoginForm = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    rememberMe: false
-  });
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const { login } = useAuth();
+const LoginForm: React.FC = () => {
   const navigate = useNavigate();
+  const { login, loading } = useAuth();
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
 
-  const validateForm = () => {
-    const newErrors: { [key: string]: string } = {};
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Limpiar error del campo cuando el usuario empiece a escribir
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
 
-    // Validar email/username
-    if (!formData.email.trim()) {
-      newErrors.email = 'El correo electrónico o nombre de usuario es requerido';
-    } else if (formData.email.includes('@')) {
-      // Si contiene @, validar como email
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.email)) {
-        newErrors.email = 'Formato de correo electrónico inválido';
-      }
+  const validateForm = (): boolean => {
+    const newErrors: {[key: string]: string} = {};
+
+    if (formData.username.trim().length < 2) {
+      newErrors.username = 'El nombre de usuario debe tener al menos 2 caracteres';
     }
 
-    // Validar contraseña
-    if (!formData.password) {
-      newErrors.password = 'La contraseña es requerida';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
+    if (formData.password.trim().length < 2) {
+      newErrors.password = 'La contraseña debe tener al menos 2 caracteres';
     }
 
     setErrors(newErrors);
@@ -52,143 +52,115 @@ const LoginForm = () => {
       return;
     }
 
-    setIsSubmitting(true);
+    const success = await login(formData.username, formData.password);
     
-    try {
-      const success = await login(formData.email, formData.password, formData.rememberMe);
-      
-      if (success) {
-        toast.success('¡Inicio de sesión exitoso!');
-        navigate('/');
-      } else {
-        toast.error('Credenciales incorrectas. Verifica tu email/usuario y contraseña.');
-      }
-    } catch (error) {
-      toast.error('Error al iniciar sesión. Inténtalo de nuevo.');
-    }
-    
-    setIsSubmitting(false);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Limpiar error del campo cuando el usuario empiece a escribir
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
+    if (success) {
+      toast.success('¡Bienvenido!');
+      navigate('/');
+    } else {
+      toast.error('Credenciales inválidas');
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary to-background">
-      {/* Logo */}
-      <div className="absolute top-6 left-6">
-        <div className="flex items-center space-x-2">
-          <div className="h-8 w-8 rounded overflow-hidden bg-secondary/20">
-            <img 
-              src={logoImage} 
-              alt="Pipi Logo" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <span className="font-bold text-xl text-secondary">Pipi</span>
+    <div className="min-h-screen" style={{ backgroundColor: '#e3d8b5' }}>
+      {/* Header */}
+      <div className="w-full py-4" style={{ backgroundColor: '#48392e' }}>
+        <div className="container mx-auto px-4">
+          <img 
+            src={logoImage} 
+            alt="DOUBLE π Logo" 
+            className="w-12 h-12 rounded-full mx-auto"
+          />
         </div>
       </div>
 
-      <div className="flex items-center justify-center min-h-screen px-4">
+      {/* Main Content */}
+      <div className="flex items-center justify-center px-4 py-16">
         <div className="w-full max-w-md">
-          <div className="bg-card rounded-2xl shadow-2xl p-8 border border-border/50 backdrop-blur-sm">
-            {/* Header */}
-            <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-foreground mb-2">LOGIN</h1>
-              <p className="text-muted-foreground">Ingresa a tu cuenta</p>
-              <p className="text-sm text-muted-foreground mt-2">
-                ¿No tienes cuenta?{' '}
-                <Link to="/register" className="text-primary hover:underline font-medium">
-                  Regístrate
-                </Link>
-              </p>
-            </div>
+          {/* Logo and Title */}
+          <div className="text-center mb-8">
+            <img 
+              src={logoImage} 
+              alt="DOUBLE π Logo" 
+              className="w-24 h-24 rounded-full mx-auto mb-4"
+            />
+            <h1 className="text-2xl font-bold text-[#48392e] mb-8">LOG IN</h1>
+          </div>
 
-          {/* Formulario */}
+          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Campo Email/Usuario */}
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium">INGRESA TU CORREO ELECTRÓNICO</Label>
+            <div>
+              <label className="block text-[#48392e] text-sm font-medium mb-2">
+                INTRODUCE TU NOMBRE O USER NAME
+              </label>
               <Input
-                id="email"
-                name="email"
                 type="text"
-                value={formData.email}
+                name="username"
+                value={formData.username}
                 onChange={handleInputChange}
-                placeholder="ejemplo@correo.com"
-                className={`rounded-full h-12 px-6 ${errors.email ? 'border-destructive' : 'border-muted bg-muted/50'}`}
-                autoComplete="username"
+                className="w-full h-12 bg-[#c4a574] border-none rounded-full px-4 text-[#48392e] placeholder:text-[#48392e]/70"
+                placeholder="DoubleΠ"
+                style={{ backgroundColor: '#c4a574' }}
               />
-              {errors.email && (
-                <p className="text-sm text-destructive">{errors.email}</p>
+              {errors.username && (
+                <p className="text-red-600 text-sm mt-1">{errors.username}</p>
               )}
             </div>
 
-            {/* Campo Contraseña */}
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium">INTRODUCE TU CONTRASEÑA</Label>
+            <div>
+              <label className="block text-[#48392e] text-sm font-medium mb-2">
+                INTRODUCE TU CONTRASEÑA
+              </label>
               <Input
-                id="password"
-                name="password"
                 type="password"
+                name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                placeholder="••••••••"
-                className={`rounded-full h-12 px-6 ${errors.password ? 'border-destructive' : 'border-muted bg-muted/50'}`}
-                autoComplete="current-password"
+                className="w-full h-12 bg-[#c4a574] border-none rounded-full px-4 text-[#48392e] placeholder:text-[#48392e]/70"
+                placeholder="••••••"
+                style={{ backgroundColor: '#c4a574' }}
               />
               {errors.password && (
-                <p className="text-sm text-destructive">{errors.password}</p>
+                <p className="text-red-600 text-sm mt-1">{errors.password}</p>
               )}
             </div>
 
-            {/* Recordarme */}
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="rememberMe"
-                checked={formData.rememberMe}
-                onCheckedChange={(checked) => 
-                  setFormData(prev => ({ ...prev, rememberMe: !!checked }))
-                }
-              />
-              <Label htmlFor="rememberMe" className="text-sm">
-                Recordarme en este dispositivo
-              </Label>
+            <div className="text-center">
+              <Link 
+                to="/forgot-password" 
+                className="text-[#48392e] text-sm hover:underline"
+              >
+                RECUPERAR CONTRASEÑA
+              </Link>
             </div>
 
-            {/* Botón de Submit */}
-            <Button 
-              type="submit" 
-              className="w-full rounded-full h-12 text-base font-medium"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Iniciando sesión...' : 'Iniciar'}
-            </Button>
-          </form>
+            <div className="text-center">
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-32 h-10 bg-[#c4a574] hover:bg-[#b39660] text-[#48392e] font-medium rounded-full border-none"
+                style={{ backgroundColor: '#c4a574' }}
+              >
+                {loading ? 'Cargando...' : 'Login'}
+              </Button>
+            </div>
 
-          {/* Enlaces adicionales */}
-          <div className="mt-6 text-center">
-            <Link 
-              to="/forgot-password" 
-              className="text-sm text-primary hover:underline"
-            >
-              ¿Olvidaste tu contraseña?
-            </Link>
-          </div>
-        </div>
+            <div className="text-center space-y-2">
+              <p className="text-[#48392e] text-sm">
+                SI NO TIENES UNA CUENTA REGÍSTRATE
+              </p>
+              <div className="flex items-center justify-center space-x-2">
+                <span className="text-[#48392e] text-sm">REGÍSTRATE CON:</span>
+                <Link 
+                  to="/register"
+                  className="w-8 h-8 bg-white rounded-full flex items-center justify-center"
+                >
+                  <span className="text-[#48392e] text-lg font-bold">M</span>
+                </Link>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

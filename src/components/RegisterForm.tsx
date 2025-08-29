@@ -1,73 +1,64 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'sonner';
-import Header from '@/components/Header';
+import logoImage from '@/assets/logo.png';
 
-const RegisterForm = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: '',
-    birthDate: ''
-  });
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showAdditionalFields, setShowAdditionalFields] = useState(false);
-  
-  const { register } = useAuth();
+const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
+  const { register, loading } = useAuth();
+  const [formData, setFormData] = useState({
+    fullName: '',
+    username: '',
+    email: '',
+    password: '',
+    size: '',
+    birthDate: '',
+    photo: null as File | null,
+  });
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
 
-  const validateBasicForm = () => {
-    const newErrors: { [key: string]: string } = {};
-
-    // Validar email
-    if (!formData.email.trim()) {
-      newErrors.email = 'El correo electrónico es requerido';
-    } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.email)) {
-        newErrors.email = 'Formato de correo electrónico inválido';
-      }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
     }
-
-    // Validar username
-    if (!formData.username.trim()) {
-      newErrors.username = 'El nombre de usuario es requerido';
-    } else if (formData.username.length < 3) {
-      newErrors.username = 'El nombre de usuario debe tener al menos 3 caracteres';
-    } else if (!/^[a-zA-Z0-9_]+$/.test(formData.username)) {
-      newErrors.username = 'El nombre de usuario solo puede contener letras, números y guiones bajos';
-    }
-
-    // Validar contraseña
-    if (!formData.password) {
-      newErrors.password = 'La contraseña es requerida';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
   };
 
-  const validateFullForm = () => {
-    const newErrors: { [key: string]: string } = {};
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setFormData(prev => ({
+      ...prev,
+      photo: file
+    }));
+  };
 
-    // Validar confirmación de contraseña
-    if (!formData.confirmPassword) {
-      newErrors.confirmPassword = 'Confirma tu contraseña';
-    } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Las contraseñas no coinciden';
+  const validateForm = (): boolean => {
+    const newErrors: {[key: string]: string} = {};
+
+    if (formData.fullName.trim().length < 2) {
+      newErrors.fullName = 'El nombre debe tener al menos 2 caracteres';
     }
 
-    // Validar fecha de nacimiento
-    if (!formData.birthDate) {
-      newErrors.birthDate = 'La fecha de nacimiento es requerida';
+    if (formData.username.trim().length < 2) {
+      newErrors.username = 'El nombre de usuario debe tener al menos 2 caracteres';
+    }
+
+    if (formData.email.trim().length < 2) {
+      newErrors.email = 'El email debe tener al menos 2 caracteres';
+    }
+
+    if (formData.password.trim().length < 2) {
+      newErrors.password = 'La contraseña debe tener al menos 2 caracteres';
     }
 
     setErrors(newErrors);
@@ -77,186 +68,200 @@ const RegisterForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!showAdditionalFields) {
-      // Primera vez: validar campos básicos y mostrar campos adicionales
-      if (!validateBasicForm()) {
-        return;
-      }
-      setShowAdditionalFields(true);
+    if (!validateForm()) {
       return;
     }
 
-    // Segunda vez: validar todos los campos y registrar
-    if (!validateFullForm()) {
-      return;
-    }
-
-    setIsSubmitting(true);
+    const success = await register(formData.email, formData.username, formData.password);
     
-    try {
-      const success = await register(formData.email, formData.username, formData.password);
-      
-      if (success) {
-        toast.success('¡Cuenta creada exitosamente! Ahora puedes iniciar sesión.');
-        navigate('/login');
-      } else {
-        toast.error('El correo electrónico o nombre de usuario ya está en uso.');
-      }
-    } catch (error) {
-      toast.error('Error al crear la cuenta. Inténtalo de nuevo.');
-    }
-    
-    setIsSubmitting(false);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Limpiar error del campo cuando el usuario empiece a escribir
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
+    if (success) {
+      toast.success('¡Registro exitoso! Ahora puedes iniciar sesión');
+      navigate('/login');
+    } else {
+      toast.error('Error en el registro');
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary to-background">
-      {/* Logo */}
-      <div className="absolute top-6 left-6">
-        <div className="flex items-center space-x-2">
-          <div className="h-8 w-8 rounded bg-secondary flex items-center justify-center">
-            <span className="text-secondary-foreground font-bold text-sm">P</span>
-          </div>
-          <span className="font-bold text-xl text-secondary">Pipi</span>
+    <div className="min-h-screen" style={{ backgroundColor: '#e3d8b5' }}>
+      {/* Header */}
+      <div className="w-full py-4" style={{ backgroundColor: '#48392e' }}>
+        <div className="container mx-auto px-4">
+          <img 
+            src={logoImage} 
+            alt="DOUBLE π Logo" 
+            className="w-12 h-12 rounded-full mx-auto"
+          />
         </div>
       </div>
 
-      <div className="flex items-center justify-center min-h-screen px-4">
-        <div className="w-full max-w-md">
-          <div className="bg-card rounded-2xl shadow-2xl p-8 border border-border/50 backdrop-blur-sm">
-            {/* Header */}
-            <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-foreground mb-2">REGISTER</h1>
-              <p className="text-base text-foreground mb-4">Crea una cuenta nueva</p>
-              <p className="text-sm text-muted-foreground">
+      {/* Main Content */}
+      <div className="flex items-center justify-center px-4 py-8">
+        <div className="w-full max-w-4xl">
+          {/* Title */}
+          <div className="text-center mb-8">
+            <h1 className="text-2xl font-bold text-[#48392e] mb-2">REGISTER</h1>
+            <div className="space-y-1">
+              <p className="text-[#48392e] text-lg">Crea una cuenta nueva</p>
+              <p className="text-[#48392e] text-sm">
                 ¿Ya te has registrado?{' '}
-                <Link to="/login" className="text-primary hover:underline font-medium">
-                  Ingresar
+                <Link to="/login" className="underline hover:no-underline">
+                  INGRESAR
                 </Link>
               </p>
             </div>
+          </div>
 
-          {/* Formulario */}
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Campo Email */}
-            <div className="space-y-2">
-              <Label htmlFor="username" className="text-sm font-medium">INTRODUCE TU NOMBRE</Label>
-              <Input
-                id="username"
-                name="username"
-                type="text"
-                value={formData.username}
-                onChange={handleInputChange}
-                placeholder="Usuario123"
-                className={`rounded-full h-12 px-6 ${errors.username ? 'border-destructive' : 'border-muted bg-muted/50'}`}
-                autoComplete="username"
-              />
-              {errors.username && (
-                <p className="text-sm text-destructive">{errors.username}</p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium">INGRESA TU CORREO ELECTRÓNICO</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="ejemplo@correo.com"
-                className={`rounded-full h-12 px-6 ${errors.email ? 'border-destructive' : 'border-muted bg-muted/50'}`}
-                autoComplete="email"
-              />
-              {errors.email && (
-                <p className="text-sm text-destructive">{errors.email}</p>
-              )}
-            </div>
-
-            {/* Campo Contraseña */}
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium">INTRODUCE TU CONTRASEÑA</Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                placeholder="••••••••"
-                className={`rounded-full h-12 px-6 ${errors.password ? 'border-destructive' : 'border-muted bg-muted/50'}`}
-                autoComplete="new-password"
-              />
-              {errors.password && (
-                <p className="text-sm text-destructive">{errors.password}</p>
-              )}
-            </div>
-
-            {/* Campos adicionales que aparecen después del primer clic */}
-            {showAdditionalFields && (
-              <>
-                {/* Campo Confirmar Contraseña */}
-                <div className="space-y-2">
-                  <Label htmlFor="confirmPassword" className="text-sm font-medium">CONFIRMA TU CONTRASEÑA</Label>
+          {/* Form */}
+          <form onSubmit={handleSubmit}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+              {/* Left Column */}
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-[#48392e] text-sm font-medium mb-2">
+                    NOMBRE COMPLETO
+                  </label>
                   <Input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type="password"
-                    value={formData.confirmPassword}
+                    type="text"
+                    name="fullName"
+                    value={formData.fullName}
                     onChange={handleInputChange}
-                    placeholder="••••••••"
-                    className={`rounded-full h-12 px-6 ${errors.confirmPassword ? 'border-destructive' : 'border-muted bg-muted/50'}`}
-                    autoComplete="new-password"
+                    className="w-full h-12 bg-[#c4a574] border-none rounded-full px-4 text-[#48392e] placeholder:text-[#48392e]/70"
+                    placeholder="Nombre"
+                    style={{ backgroundColor: '#c4a574' }}
                   />
-                  {errors.confirmPassword && (
-                    <p className="text-sm text-destructive">{errors.confirmPassword}</p>
+                  {errors.fullName && (
+                    <p className="text-red-600 text-sm mt-1">{errors.fullName}</p>
                   )}
                 </div>
 
-                {/* Campo Fecha de Nacimiento */}
-                <div className="space-y-2">
-                  <Label htmlFor="birthDate" className="text-sm font-medium">INTRODUCE TU FECHA DE NACIMIENTO</Label>
+                <div>
+                  <label className="block text-[#48392e] text-sm font-medium mb-2">
+                    USERNAME
+                  </label>
                   <Input
-                    id="birthDate"
-                    name="birthDate"
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleInputChange}
+                    className="w-full h-12 bg-[#c4a574] border-none rounded-full px-4 text-[#48392e] placeholder:text-[#48392e]/70"
+                    placeholder="Username"
+                    style={{ backgroundColor: '#c4a574' }}
+                  />
+                  {errors.username && (
+                    <p className="text-red-600 text-sm mt-1">{errors.username}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-[#48392e] text-sm font-medium mb-2">
+                    CORREO ELECTRÓNICO
+                  </label>
+                  <Input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full h-12 bg-[#c4a574] border-none rounded-full px-4 text-[#48392e] placeholder:text-[#48392e]/70"
+                    placeholder="ejemplo@gmail.com"
+                    style={{ backgroundColor: '#c4a574' }}
+                  />
+                  {errors.email && (
+                    <p className="text-red-600 text-sm mt-1">{errors.email}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-[#48392e] text-sm font-medium mb-2">
+                    CONTRASEÑA
+                  </label>
+                  <Input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    className="w-full h-12 bg-[#c4a574] border-none rounded-full px-4 text-[#48392e] placeholder:text-[#48392e]/70"
+                    placeholder="Contraseña"
+                    style={{ backgroundColor: '#c4a574' }}
+                  />
+                  {errors.password && (
+                    <p className="text-red-600 text-sm mt-1">{errors.password}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Right Column */}
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-[#48392e] text-sm font-medium mb-2">
+                    TALLA
+                  </label>
+                  <select
+                    name="size"
+                    value={formData.size}
+                    onChange={handleInputChange}
+                    className="w-full h-12 bg-[#c4a574] border-none rounded-full px-4 text-[#48392e]"
+                    style={{ backgroundColor: '#c4a574' }}
+                  >
+                    <option value="">Selecciona tu talla</option>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[#48392e] text-sm font-medium mb-2">
+                    FECHA DE NACIMIENTO
+                  </label>
+                  <Input
                     type="date"
+                    name="birthDate"
                     value={formData.birthDate}
                     onChange={handleInputChange}
-                    className={`rounded-full h-12 px-6 ${errors.birthDate ? 'border-destructive' : 'border-muted bg-muted/50'}`}
+                    className="w-full h-12 bg-[#c4a574] border-none rounded-full px-4 text-[#48392e]"
+                    style={{ backgroundColor: '#c4a574' }}
                   />
-                  {errors.birthDate && (
-                    <p className="text-sm text-destructive">{errors.birthDate}</p>
-                  )}
                 </div>
-              </>
-            )}
 
-            {/* Botón de Submit */}
-            <Button 
-              type="submit" 
-              className="w-full rounded-full h-12 text-base font-medium"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Registrarse...' : 'Registrarse'}
-            </Button>
+                <div>
+                  <label className="block text-[#48392e] text-sm font-medium mb-2">
+                    FOTO
+                  </label>
+                  <div className="relative">
+                    <Input
+                      type="file"
+                      name="photo"
+                      onChange={handleFileChange}
+                      accept="image/*"
+                      className="w-full h-12 bg-[#c4a574] border-none rounded-full px-4 text-[#48392e] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#48392e] file:text-white hover:file:bg-[#3a2d24]"
+                      style={{ backgroundColor: '#c4a574' }}
+                    />
+                    {!formData.photo && (
+                      <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#48392e]/70 text-sm pointer-events-none">
+                        Elegir archivo | No se eligió ningún archivo
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className="text-center mt-8">
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-40 h-12 bg-[#c4a574] hover:bg-[#b39660] text-[#48392e] font-medium rounded-full border-none"
+                style={{ backgroundColor: '#c4a574' }}
+              >
+                {loading ? 'Cargando...' : 'Registrarse'}
+              </Button>
+            </div>
           </form>
-
-        </div>
         </div>
       </div>
     </div>

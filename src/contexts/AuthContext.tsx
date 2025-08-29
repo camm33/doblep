@@ -34,104 +34,45 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Verificar si hay una sesión guardada al cargar la página
-    const savedUser = localStorage.getItem('authUser') || sessionStorage.getItem('authUser');
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch (error) {
-        console.error('Error al cargar usuario guardado:', error);
-        localStorage.removeItem('authUser');
-        sessionStorage.removeItem('authUser');
-      }
-    }
+    // Sin persistencia - siempre empezar sin usuario
     setLoading(false);
   }, []);
 
   const login = async (email: string, password: string, rememberMe: boolean = false): Promise<boolean> => {
     setLoading(true);
     
-    try {
-      // Obtener usuarios registrados
-      const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    // Simulación de login simple - solo verificar que no esté vacío
+    if (email.trim().length >= 2 && password.trim().length >= 2) {
+      const userSession = {
+        id: crypto.randomUUID(),
+        email: email,
+        username: email
+      };
       
-      // Buscar usuario por email o username
-      const foundUser = registeredUsers.find((u: any) => 
-        (u.email === email || u.username === email) && u.password === password
-      );
-
-      if (foundUser) {
-        const userSession = {
-          id: foundUser.id,
-          email: foundUser.email,
-          username: foundUser.username
-        };
-        
-        setUser(userSession);
-        
-        // Guardar sesión según la preferencia del usuario
-        if (rememberMe) {
-          localStorage.setItem('authUser', JSON.stringify(userSession));
-        } else {
-          sessionStorage.setItem('authUser', JSON.stringify(userSession));
-        }
-        
-        setLoading(false);
-        return true;
-      }
-      
+      setUser(userSession);
       setLoading(false);
-      return false;
-    } catch (error) {
-      console.error('Error en login:', error);
-      setLoading(false);
-      return false;
+      return true;
     }
+    
+    setLoading(false);
+    return false;
   };
 
   const register = async (email: string, username: string, password: string): Promise<boolean> => {
     setLoading(true);
     
-    try {
-      // Obtener usuarios existentes
-      const existingUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
-      
-      // Verificar si el email o username ya existe
-      const userExists = existingUsers.some((u: any) => 
-        u.email === email || u.username === username
-      );
-      
-      if (userExists) {
-        setLoading(false);
-        return false;
-      }
-      
-      // Crear nuevo usuario
-      const newUser = {
-        id: crypto.randomUUID(),
-        email,
-        username,
-        password,
-        createdAt: new Date().toISOString()
-      };
-      
-      // Guardar en la lista de usuarios registrados
-      const updatedUsers = [...existingUsers, newUser];
-      localStorage.setItem('registeredUsers', JSON.stringify(updatedUsers));
-      
+    // Simulación de registro simple - solo verificar que no esté vacío
+    if (email.trim().length >= 2 && username.trim().length >= 2 && password.trim().length >= 2) {
       setLoading(false);
       return true;
-    } catch (error) {
-      console.error('Error en registro:', error);
-      setLoading(false);
-      return false;
     }
+    
+    setLoading(false);
+    return false;
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('authUser');
-    sessionStorage.removeItem('authUser');
   };
 
   const value: AuthContextType = {
