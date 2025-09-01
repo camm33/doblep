@@ -32,7 +32,7 @@ const ProductCard = ({
 }: ProductCardProps) => {
   return (
     <Card 
-      className="group overflow-hidden border-border hover:shadow-lg transition-all duration-300 cursor-pointer bg-card hover:bg-[hsl(var(--product-card-hover))]"
+      className="product-card group overflow-hidden border-border hover:shadow-lg transition-all duration-300 cursor-pointer bg-card hover:bg-[hsl(var(--product-card-hover))]"
       onClick={() => onClick?.(id)}
     >
       <div className="relative overflow-hidden">
@@ -44,7 +44,7 @@ const ProductCard = ({
         <Button
           variant="ghost"
           size="sm"
-          className="absolute top-2 right-2 h-8 w-8 rounded-full bg-card/80 backdrop-blur-sm hover:bg-card"
+          className="product-like-button absolute top-2 right-2 h-8 w-8 rounded-full bg-card/80 backdrop-blur-sm hover:bg-card"
           onClick={(e) => {
             e.stopPropagation();
             onLike?.(id);
@@ -53,7 +53,7 @@ const ProductCard = ({
           <Heart className={`h-4 w-4 ${isLiked ? 'fill-red-500 text-red-500' : 'hover:text-red-500'}`} />
         </Button>
         {condition !== 'New' && (
-          <Badge variant="secondary" className="absolute bottom-2 left-2">
+          <Badge variant="secondary" className="product-condition-badge absolute bottom-2 left-2">
             {condition}
           </Badge>
         )}
@@ -61,17 +61,17 @@ const ProductCard = ({
       
       <div className="p-4 space-y-2">
         {brand && (
-          <p className="text-sm text-muted-foreground font-medium">{brand}</p>
+          <p className="product-brand text-sm text-muted-foreground font-medium">{brand}</p>
         )}
-        <h3 className="font-medium leading-tight line-clamp-2">{title}</h3>
+        <h3 className="product-title font-medium leading-tight line-clamp-2">{title}</h3>
         
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-lg text-[hsl(var(--price-highlight))]">
+            <span className="product-price font-bold text-lg text-[hsl(var(--price-highlight))]">
               ${price.toLocaleString('es-CO')} COP
             </span>
             {originalPrice && (
-              <span className="text-sm text-muted-foreground line-through">
+              <span className="product-original-price text-sm text-muted-foreground line-through">
                 ${originalPrice.toLocaleString('es-CO')} COP
               </span>
             )}

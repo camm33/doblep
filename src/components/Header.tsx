@@ -48,7 +48,7 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
+    <header id="app-header" className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-2 cursor-pointer" onClick={() => navigate('/')}>
@@ -59,7 +59,7 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
               className="w-full h-full object-cover"
             />
           </div>
-          <span className="font-bold text-xl">Pipi</span>
+          <span id="app-logo-text" className="font-bold text-xl">Pipi</span>
         </div>
 
         {/* Search Bar (solo en el catálogo) */}
@@ -68,7 +68,7 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
             <SearchBar onSearch={handleSearch} />
           </div>
         ) : !isAuthenticated ? (
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav id="header-nav-links" className="hidden md:flex items-center space-x-8">
             <a href="/" className="text-foreground hover:text-primary transition-colors">
               Tienda
             </a>
@@ -85,20 +85,21 @@ const Header = ({ cartItemCount = 0 }: HeaderProps) => {
 
         {/* Actions */}
         <div className="flex items-center space-x-4">
-          <Button variant="outline" size="sm" className="gap-2">
+          <Button id="sell-button" variant="outline" size="sm" className="gap-2">
             <Plus className="h-4 w-4" />
             <span className="hidden sm:inline">Vender Artículo</span>
           </Button>
           
-          <Button variant="outline" size="sm" className="gap-2">
+          <Button id="exchange-button" variant="outline" size="sm" className="gap-2">
             <Plus className="h-4 w-4" />
             <span className="hidden sm:inline">Intercambiar Artículos</span>
           </Button>
           
-          <Button variant="ghost" size="sm" className="relative">
+          <Button id="cart-button" variant="ghost" size="sm" className="relative">
             <ShoppingBag className="h-5 w-5" />
             {cartItemCount > 0 && (
               <Badge 
+                id="cart-badge"
                 variant="destructive" 
                 className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"
               >

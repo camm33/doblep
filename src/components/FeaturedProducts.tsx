@@ -76,14 +76,14 @@ const featuredProducts = [
 
 const FeaturedProducts = () => {
   return (
-    <section className="py-16 bg-background">
+    <section id="featured-section" className="py-16 bg-background">
       <div className="container">
         <div className="flex items-center justify-between mb-12">
           <div>
-            <h2 className="text-3xl font-bold mb-2">Artículos Destacados</h2>
-            <p className="text-muted-foreground">Piezas seleccionadas especialmente para ti</p>
+            <h2 id="featured-title" className="text-3xl font-bold mb-2">Artículos Destacados</h2>
+            <p id="featured-description" className="text-muted-foreground">Piezas seleccionadas especialmente para ti</p>
           </div>
-          <Button variant="outline" className="group">
+          <Button id="featured-view-all-button" variant="outline" className="group">
             Ver Todos
             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Button>

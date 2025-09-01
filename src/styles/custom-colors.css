@@ -1,0 +1,342 @@
+/* 
+  ARCHIVO DE COLORES PERSONALIZADOS
+  ===================================
+  
+  Aquí puedes cambiar los colores de cada parte de la aplicación usando códigos hexadecimales.
+  Simplemente cambia el valor del color después de 'background-color:' o 'color:'
+  
+  Formato: #RRGGBB (ejemplo: #ff0000 para rojo, #0066cc para azul)
+  
+  IMPORTANTE: Después de hacer cambios, recarga la página para ver los cambios.
+*/
+
+/* ===== HEADER (Barra superior) ===== */
+#app-header {
+  background-color: #ffffff !important;
+  border-bottom-color: #e5e7eb !important;
+}
+
+#app-logo-text {
+  color: #1f2937 !important;
+}
+
+#header-nav-links a {
+  color: #374151 !important;
+}
+
+#header-nav-links a:hover {
+  color: #3b82f6 !important;
+}
+
+#sell-button {
+  background-color: #f3f4f6 !important;
+  color: #374151 !important;
+  border-color: #d1d5db !important;
+}
+
+#sell-button:hover {
+  background-color: #e5e7eb !important;
+}
+
+#exchange-button {
+  background-color: #f3f4f6 !important;
+  color: #374151 !important;
+  border-color: #d1d5db !important;
+}
+
+#exchange-button:hover {
+  background-color: #e5e7eb !important;
+}
+
+#cart-button {
+  color: #374151 !important;
+}
+
+#cart-badge {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+/* ===== HERO SECTION (Sección principal) ===== */
+#hero-section {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+}
+
+#hero-overlay {
+  background: linear-gradient(to right, rgba(59, 130, 246, 0.9), rgba(29, 78, 216, 0.7)) !important;
+}
+
+#hero-badge {
+  color: #ffffff !important;
+}
+
+#hero-title {
+  color: #ffffff !important;
+}
+
+#hero-accent-text {
+  color: #fbbf24 !important;
+}
+
+#hero-description {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+#hero-shop-button {
+  background-color: #ffffff !important;
+  color: #3b82f6 !important;
+}
+
+#hero-shop-button:hover {
+  background-color: #f3f4f6 !important;
+}
+
+#hero-sell-button {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+#hero-sell-button:hover {
+  background-color: #ffffff !important;
+  color: #3b82f6 !important;
+}
+
+/* ===== FEATURED PRODUCTS (Productos destacados) ===== */
+#featured-section {
+  background-color: #ffffff !important;
+}
+
+#featured-title {
+  color: #1f2937 !important;
+}
+
+#featured-description {
+  color: #6b7280 !important;
+}
+
+#featured-view-all-button {
+  background-color: #f3f4f6 !important;
+  color: #374151 !important;
+  border-color: #d1d5db !important;
+}
+
+#featured-view-all-button:hover {
+  background-color: #e5e7eb !important;
+}
+
+/* ===== PRODUCT CARDS (Tarjetas de productos) ===== */
+.product-card {
+  background-color: #ffffff !important;
+  border-color: #e5e7eb !important;
+}
+
+.product-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+.product-title {
+  color: #1f2937 !important;
+}
+
+.product-brand {
+  color: #6b7280 !important;
+}
+
+.product-price {
+  color: #059669 !important;
+}
+
+.product-original-price {
+  color: #9ca3af !important;
+}
+
+.product-condition-badge {
+  background-color: #f0fdf4 !important;
+  color: #166534 !important;
+  border-color: #bbf7d0 !important;
+}
+
+.product-like-button {
+  color: #6b7280 !important;
+}
+
+.product-like-button:hover {
+  color: #ef4444 !important;
+}
+
+/* ===== PRODUCT DETAIL PAGE (Página de detalle del producto) ===== */
+#product-detail-container {
+  background-color: #ffffff !important;
+}
+
+#back-button {
+  color: #6b7280 !important;
+}
+
+#back-button:hover {
+  color: #374151 !important;
+}
+
+#product-condition-badge {
+  background-color: #f3f4f6 !important;
+  color: #374151 !important;
+}
+
+#product-heart-button {
+  color: #6b7280 !important;
+}
+
+#product-heart-button:hover {
+  color: #ef4444 !important;
+}
+
+#product-share-button {
+  color: #6b7280 !important;
+}
+
+#product-share-button:hover {
+  color: #3b82f6 !important;
+}
+
+#product-detail-brand {
+  color: #6b7280 !important;
+}
+
+#product-detail-title {
+  color: #1f2937 !important;
+}
+
+#product-detail-price {
+  color: #059669 !important;
+}
+
+#product-detail-original-price {
+  color: #9ca3af !important;
+}
+
+#product-discount-badge {
+  background-color: #f0fdf4 !important;
+  color: #166534 !important;
+  border-color: #bbf7d0 !important;
+}
+
+#size-selector-title {
+  color: #1f2937 !important;
+}
+
+.size-button {
+  background-color: #f3f4f6 !important;
+  color: #374151 !important;
+  border-color: #d1d5db !important;
+}
+
+.size-button.selected {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+#add-to-cart-button {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+#add-to-cart-button:hover {
+  background-color: #2563eb !important;
+}
+
+#buy-now-button {
+  background-color: #f3f4f6 !important;
+  color: #374151 !important;
+  border-color: #d1d5db !important;
+}
+
+#buy-now-button:hover {
+  background-color: #e5e7eb !important;
+}
+
+#product-description-title {
+  color: #1f2937 !important;
+}
+
+#product-description-text {
+  color: #6b7280 !important;
+}
+
+#seller-card {
+  background-color: #f9fafb !important;
+  border-color: #e5e7eb !important;
+}
+
+#seller-name {
+  color: #1f2937 !important;
+}
+
+#seller-rating {
+  color: #6b7280 !important;
+}
+
+#view-profile-button {
+  background-color: #f3f4f6 !important;
+  color: #374151 !important;
+  border-color: #d1d5db !important;
+}
+
+#view-profile-button:hover {
+  background-color: #e5e7eb !important;
+}
+
+#product-details-title {
+  color: #1f2937 !important;
+}
+
+.detail-label {
+  color: #6b7280 !important;
+}
+
+.detail-value {
+  color: #1f2937 !important;
+}
+
+/* ===== FOOTER (Pie de página) ===== */
+#app-footer {
+  background-color: #f9fafb !important;
+  border-top-color: #e5e7eb !important;
+}
+
+#footer-brand-name {
+  color: #1f2937 !important;
+}
+
+#footer-brand-icon {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+#footer-brand-description {
+  color: #6b7280 !important;
+}
+
+.footer-section-title {
+  color: #1f2937 !important;
+}
+
+.footer-link {
+  color: #6b7280 !important;
+}
+
+.footer-link:hover {
+  color: #374151 !important;
+}
+
+#footer-copyright {
+  color: #6b7280 !important;
+}
+
+.footer-legal-link {
+  color: #6b7280 !important;
+}
+
+.footer-legal-link:hover {
+  color: #374151 !important;
+}

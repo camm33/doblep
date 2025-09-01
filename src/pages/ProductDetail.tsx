@@ -37,12 +37,12 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div id="product-detail-container" className="min-h-screen">
       <Header cartItemCount={2} />
       
       <div className="container py-8">
         {/* Back Button */}
-        <Button variant="ghost" className="mb-6 gap-2">
+        <Button id="back-button" variant="ghost" className="mb-6 gap-2">
           <ArrowLeft className="h-4 w-4" />
           Volver a la Tienda
         </Button>
@@ -74,32 +74,33 @@ const ProductDetail = () => {
           <div className="space-y-6">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <Badge variant="secondary">{product.condition}</Badge>
+                <Badge id="product-condition-badge" variant="secondary">{product.condition}</Badge>
                 <div className="flex gap-2">
                   <Button
+                    id="product-heart-button"
                     variant="ghost"
                     size="sm"
                     onClick={() => setIsLiked(!isLiked)}
                   >
                     <Heart className={`h-4 w-4 ${isLiked ? 'fill-red-500 text-red-500' : ''}`} />
                   </Button>
-                  <Button variant="ghost" size="sm">
+                  <Button id="product-share-button" variant="ghost" size="sm">
                     <Share2 className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
               
-              <p className="text-sm text-muted-foreground font-medium mb-2">{product.brand}</p>
-              <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
+              <p id="product-detail-brand" className="text-sm text-muted-foreground font-medium mb-2">{product.brand}</p>
+              <h1 id="product-detail-title" className="text-3xl font-bold mb-4">{product.title}</h1>
               
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-3xl font-bold text-[hsl(var(--price-highlight))]">
+                <span id="product-detail-price" className="text-3xl font-bold text-[hsl(var(--price-highlight))]">
                   ${product.price.toLocaleString('es-CO')} COP
                 </span>
-                <span className="text-xl text-muted-foreground line-through">
+                <span id="product-detail-original-price" className="text-xl text-muted-foreground line-through">
                   ${product.originalPrice.toLocaleString('es-CO')} COP
                 </span>
-                <Badge variant="outline" className="bg-success/10 text-success border-success">
+                <Badge id="product-discount-badge" variant="outline" className="bg-success/10 text-success border-success">
                   {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% off
                 </Badge>
               </div>
@@ -107,13 +108,13 @@ const ProductDetail = () => {
 
             {/* Size Selection */}
             <div>
-              <h3 className="font-semibold mb-3">Talla</h3>
+              <h3 id="size-selector-title" className="font-semibold mb-3">Talla</h3>
               <div className="flex gap-2">
                 {product.sizes.map((size) => (
                   <Button
                     key={size}
                     variant={selectedSize === size ? "default" : "outline"}
-                    className="w-12 h-12"
+                    className={`size-button w-12 h-12 ${selectedSize === size ? 'selected' : ''}`}
                     onClick={() => setSelectedSize(size)}
                   >
                     {size}
@@ -124,42 +125,42 @@ const ProductDetail = () => {
 
             {/* Add to Cart */}
             <div className="flex gap-4">
-              <Button size="lg" className="flex-1 gap-2">
+              <Button id="add-to-cart-button" size="lg" className="flex-1 gap-2">
                 <ShoppingBag className="h-4 w-4" />
                 Agregar al Carrito
               </Button>
-              <Button size="lg" variant="outline">
+              <Button id="buy-now-button" size="lg" variant="outline">
                 Comprar Ahora
               </Button>
             </div>
 
             {/* Description */}
             <div>
-              <h3 className="font-semibold mb-3">Descripción</h3>
-              <p className="text-muted-foreground leading-relaxed">{product.description}</p>
+              <h3 id="product-description-title" className="font-semibold mb-3">Descripción</h3>
+              <p id="product-description-text" className="text-muted-foreground leading-relaxed">{product.description}</p>
             </div>
 
             {/* Seller Info */}
-            <Card className="p-4">
+            <Card id="seller-card" className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-semibold">Vendido por {product.seller.name}</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p id="seller-name" className="font-semibold">Vendido por {product.seller.name}</p>
+                  <p id="seller-rating" className="text-sm text-muted-foreground">
                     {product.seller.rating} ★ ({product.seller.reviews} reseñas)
                   </p>
                 </div>
-                <Button variant="outline">Ver Perfil</Button>
+                <Button id="view-profile-button" variant="outline">Ver Perfil</Button>
               </div>
             </Card>
 
             {/* Product Details */}
             <div>
-              <h3 className="font-semibold mb-3">Detalles del Producto</h3>
+              <h3 id="product-details-title" className="font-semibold mb-3">Detalles del Producto</h3>
               <div className="space-y-2">
                 {Object.entries(product.details).map(([key, value]) => (
                   <div key={key} className="flex justify-between py-2">
-                    <span className="text-muted-foreground">{key}</span>
-                    <span className="font-medium">{value}</span>
+                    <span className="detail-label text-muted-foreground">{key}</span>
+                    <span className="detail-value font-medium">{value}</span>
                   </div>
                 ))}
               </div>
